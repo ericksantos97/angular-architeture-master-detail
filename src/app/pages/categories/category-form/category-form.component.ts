@@ -87,7 +87,7 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
         (category) => {
           this.category = category;
           this.categoryForm.patchValue(category);
-        }, () => alert('Ocorreu um erro no servidor, tente mais tarde.')
+        }, () => toastr.error('Ocorreu um erro no servidor, tente mais tarde.')
       );
     }
   }
@@ -117,7 +117,7 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
     if (error.status === 422) {
       this.serverErrorMessages = JSON.parse(error._body).errors;
     } else {
-      this.serverErrorMessages = ['Falha na comunicação com o servidor. Por favor, teste mais tarde.'];
+      this.serverErrorMessages = ['Falha na comunicação com o servidor. Por favor, tente mais tarde.'];
     }
   }
 
