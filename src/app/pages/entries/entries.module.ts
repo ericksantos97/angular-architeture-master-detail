@@ -1,9 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { EntriesRoutingModule } from './entries-routing.module';
-import { EntryListComponent } from './entry-list/entry-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IMaskModule } from 'angular-imask';
+import { CalendarModule } from 'primeng/calendar';
+import { EntriesRoutingModule } from './entries-routing.module';
 import { EntryFormComponent } from './entry-form/entry-form.component';
+import { EntryListComponent } from './entry-list/entry-list.component';
+
 
 
 @NgModule({
@@ -11,7 +14,9 @@ import { EntryFormComponent } from './entry-form/entry-form.component';
     CommonModule,
     EntriesRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CalendarModule,
+    IMaskModule
   ],
   declarations: [
     EntryListComponent,

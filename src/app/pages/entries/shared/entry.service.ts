@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { Entry } from './entry.model';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, flatMap } from 'rxjs/operators';
+import { CategoryService } from '../../categories/shared/category.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class EntryService {
 
   private readonly API_PATH = 'api/entries';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private categoryService: CategoryService) { }
 
   getAll(): Observable<Entry[]> {
     return this.http.get(this.API_PATH).pipe(
@@ -30,6 +32,10 @@ export class EntryService {
   }
 
   create(entry: Entry): Observable<Entry> {
+    this.categoryService.getById(entry.categoryId).pipe(
+      // flatMap(category)
+    );
+
     return this.http.post(this.API_PATH, entry).pipe(
       catchError(this.handleError),
       map(this.jsonDataToEntry)
