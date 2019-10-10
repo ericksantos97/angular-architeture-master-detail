@@ -13,7 +13,7 @@ export class EntryService {
   private readonly API_PATH = 'api/entries';
 
   constructor(private http: HttpClient,
-              private categoryService: CategoryService) { }
+    private categoryService: CategoryService) { }
 
   getAll(): Observable<Entry[]> {
     return this.http.get(this.API_PATH).pipe(
@@ -42,15 +42,20 @@ export class EntryService {
         );
       })
     );
-
   }
 
   update(entry: Entry): Observable<Entry> {
     const url = `${this.API_PATH}/${entry.id}`;
 
-    return this.http.put(url, entry).pipe(
-      catchError(this.handleError),
-      map(() => entry)
+    return this.categoryService.getById(entry.categoryId).pipe(
+      flatMap(category => {
+        entry.category = category;
+
+        return this.http.put(url, entry).pipe(
+          catchError(this.handleError),
+          map(() => entry)
+        );
+      })
     );
   }
 
