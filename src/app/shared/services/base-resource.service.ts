@@ -1,16 +1,17 @@
-import { Injectable } from '@angular/core';
-import { BaseResourceModel } from '../models/base-resource.model';
 import { HttpClient } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
+import { Injector } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-
-@Injectable({
-  providedIn: 'root'
-})
+import { catchError, map } from 'rxjs/operators';
+import { BaseResourceModel } from '../models/base-resource.model';
 export class BaseResourceService<T extends BaseResourceModel> {
 
+  protected http: HttpClient;
+
   constructor(protected apiPath: string,
-              protected http: HttpClient) { }
+              protected injector: Injector) {
+
+    this.http = injector.get(HttpClient);
+  }
 
   getAll(): Observable<T[]> {
     return this.http.get(this.apiPath).pipe(
