@@ -18,6 +18,10 @@ export class Entry {
     revenue: 'Receita'
   };
 
+  static fromJson(jsonData: any): Entry {
+    return Object.assign(new Entry(), jsonData);
+  }
+
   get paidText(): string {
     return this.paid ? 'Pago' : 'Pendente';
   }
