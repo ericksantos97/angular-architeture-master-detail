@@ -6,7 +6,7 @@ import toastr from 'toastr';
 import { BaseResourceModel } from '../../models/base-resource.model';
 import { BaseResourceService } from '../../services/base-resource.service';
 
-export class BaseResourceFormComponent<T extends BaseResourceModel> implements OnInit, AfterContentChecked {
+export abstract class BaseResourceFormComponent<T extends BaseResourceModel> implements OnInit, AfterContentChecked {
 
   public currentAction: string;
   public resourceForm: FormGroup;
@@ -48,19 +48,19 @@ export class BaseResourceFormComponent<T extends BaseResourceModel> implements O
   }
 
   protected createResource() {
-    const category: Category = Object.assign(new Category(), this.categoryForm.value);
+    const resource: T = this.jsonDataToResourceFn(this.resourceForm.value);
 
-    this.categoryService.create(category).subscribe(
-      (resultCategory) => this.actionsForSuccess(resultCategory),
+    this.baseResourceService.create(resource).subscribe(
+      (resultResource) => this.actionsForSuccess(resultResource),
       (error) => this.actionsForError(error)
     );
   }
 
   protected updateResource() {
-    const category: Category = Object.assign(new Category(), this.categoryForm.value);
+    const resource: T = this.jsonDataToResourceFn(this.resourceForm.value);
 
-    this.categoryService.update(category).subscribe(
-      (resultCategory) => this.actionsForSuccess(resultCategory),
+    this.baseResourceService.update(resource).subscribe(
+      (resultResource) => this.actionsForSuccess(resultResource),
       (error) => this.actionsForError(error)
     );
   }
@@ -73,14 +73,14 @@ export class BaseResourceFormComponent<T extends BaseResourceModel> implements O
     }
   }
 
-  protected loadCategory(): void {
+  protected loadResource(): void {
     if (this.currentAction === 'edit') {
       this.route.paramMap.pipe(
-        switchMap(params => this.categoryService.getById(+params.get('id')))
+        switchMap(params => this.baseResourceService.getById(+params.get('id')))
       ).subscribe(
-        (category) => {
-          this.category = category;
-          this.categoryForm.patchValue(category);
+        (resource) => {
+          this.resource = resource;
+          this.resourceForm.patchValue(resource);
         }, () => toastr.error('Ocorreu um erro no servidor, tente mais tarde.')
       );
     }
@@ -88,18 +88,26 @@ export class BaseResourceFormComponent<T extends BaseResourceModel> implements O
 
   protected setPageTitle(): void {
     if (this.currentAction === 'new') {
-      this.pageTitle = 'Cadastro de Nova Categoria';
+      this.pageTitle = this.creationPageTitle();
     } else {
-      const categoryName = this.category.name || '';
-      this.pageTitle = 'Editando Categoria: ' + categoryName;
+      this.pageTitle = this.editionPageTitle();
     }
   }
 
-  protected actionsForSuccess(category: Category) {
-    toastr.success('Solicitação processada com sucesso!');
+  protected creationPageTitle(): string {
+    return 'Novo';
+  }
 
-    this.router.navigateByUrl('categories', { skipLocationChange: true }).then(
-      () => this.router.navigate(['categories', category.id, 'edit'])
+  protected editionPageTitle(): string {
+    return 'Edição';
+  }
+
+  protected actionsForSuccess(resource: T) {
+    toastr.success('Solicitação processada com sucesso!');
+    const baseComponentPath = this.route.snapshot.parent.url[0].path;
+
+    this.router.navigateByUrl(baseComponentPath, { skipLocationChange: true }).then(
+      () => this.router.navigate([baseComponentPath, resource.id, 'edit'])
     );
   }
 
@@ -115,7 +123,6 @@ export class BaseResourceFormComponent<T extends BaseResourceModel> implements O
     }
   }
 
-}
-
+  protected abstract buildResourceForm(): void;
 
 }
