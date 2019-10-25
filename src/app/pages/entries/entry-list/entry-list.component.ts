@@ -10,6 +10,7 @@ import { Entry } from '../shared/entry.model';
 export class EntryListComponent implements OnInit {
 
   public entries: Entry[] = [];
+  public types = { revenue: 'revenue',  expense: 'expense' };
 
   constructor(private entryService: EntryService) { }
 

@@ -1,5 +1,5 @@
-import { OnInit, AfterContentChecked, Injector } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AfterContentChecked, Injector, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import toastr from 'toastr';

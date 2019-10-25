@@ -1,8 +1,6 @@
 import { Component, Injector } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { switchMap } from 'rxjs/operators';
 import { BaseResourceFormComponent } from 'src/app/shared/components/base-resource-form/base-resource-form.component';
-import toastr from 'toastr';
 import { Category } from '../shared/category.model';
 import { CategoryService } from './../shared/category.service';
 
