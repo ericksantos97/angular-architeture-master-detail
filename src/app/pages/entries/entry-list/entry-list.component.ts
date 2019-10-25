@@ -1,39 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryService } from '../shared/entry.service';
 import { Entry } from '../shared/entry.model';
+import { BaseResourceListComponent } from 'src/app/shared/components/base-resource-list/base-resource-list.component';
 
 @Component({
   selector: 'app-entry-list',
   templateUrl: './entry-list.component.html',
   styleUrls: ['./entry-list.component.css']
 })
-export class EntryListComponent implements OnInit {
+export class EntryListComponent extends BaseResourceListComponent<Entry> {
 
-  public entries: Entry[] = [];
   public types = { revenue: 'revenue',  expense: 'expense' };
 
-  constructor(private entryService: EntryService) { }
-
-  ngOnInit() {
-    this.getAllEntries();
-  }
-
-  getAllEntries() {
-    this.entryService.getAll().subscribe(
-      entries => this.entries = entries.sort((a, b) => b.id - a.id),
-      () => alert('Erro ao carregar a lista de lançamentos.')
-    );
-  }
-
-  deleteEntry(entry: Entry) {
-    const mustDelete = confirm('Deseja realmente excluir este item.');
-
-    if (mustDelete) {
-      this.entryService.delete(entry.id).subscribe(
-        () => this.getAllEntries(),
-        () => alert('Erro ao tentar excluir o lançamento.')
-      );
-    }
+  constructor(protected entryService: EntryService) {
+    super(entryService);
   }
 
 }
