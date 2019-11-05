@@ -1,6 +1,7 @@
 # Finansys
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli), Node: 10.16.3
+
 <br/>
 Objective of this project, is to regularize the financial control of the user, using a master detail architecture.
 
