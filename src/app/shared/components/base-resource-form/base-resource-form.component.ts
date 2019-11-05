@@ -5,6 +5,7 @@ import { switchMap } from 'rxjs/operators';
 import toastr from 'toastr';
 import { BaseResourceModel } from '../../models/base-resource.model';
 import { BaseResourceService } from '../../services/base-resource.service';
+import { BaseToastr } from '../../models/base-toastr.model';
 
 export abstract class BaseResourceFormComponent<T extends BaseResourceModel> implements OnInit, AfterContentChecked {
 
@@ -19,9 +20,9 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
   protected formBuilder: FormBuilder;
 
   constructor(protected injector: Injector,
-              public resource: T,
-              protected baseResourceService: BaseResourceService<T>,
-              protected jsonDataToResourceFn: (jsonData) => T) {
+    public resource: T,
+    protected baseResourceService: BaseResourceService<T>,
+    protected jsonDataToResourceFn: (jsonData) => T) {
     this.route = this.injector.get(ActivatedRoute);
     this.router = this.injector.get(Router);
     this.formBuilder = this.injector.get(FormBuilder);
@@ -103,6 +104,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
   }
 
   protected actionsForSuccess(resource: T) {
+    BaseToastr.configuration();
     toastr.success('Solicitação processada com sucesso!');
     const baseComponentPath = this.route.snapshot.parent.url[0].path;
 
@@ -112,6 +114,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
   }
 
   protected actionsForError(error) {
+    BaseToastr.configuration();
     toastr.error('Ocorreu um erro ao processar a sua solicitação!');
 
     this.submittingForm = false;
