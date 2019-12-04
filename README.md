@@ -1,4 +1,5 @@
 # Finansys
+# Demo https://ericksantos97.github.io/angular-architeture-master-detail/finansys/reports
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) 6.0.8, [Node](https://github.com/nodejs/node) 10.16.3
 
