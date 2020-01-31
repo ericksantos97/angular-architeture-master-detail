@@ -2,8 +2,8 @@ import { Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, flatMap, map } from 'rxjs/operators';
 import { BaseResourceService } from 'src/app/shared/services/base-resource.service';
-import { CategoryService } from '../../categories/shared/category.service';
-import { Entry } from './entry.model';
+import { CategoryService } from '../../../categories/shared/service/category.service';
+import { Entry } from '../model/entry.model';
 import * as moment from 'moment';
 
 @Injectable({

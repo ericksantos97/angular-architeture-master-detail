@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { NgModule, forwardRef } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler/src/core';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { PageHeaderComponent } from './components/page-header/page-header.component';
+import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
 import { FormFieldErrorComponent } from './components/form-field-error/form-field-error.component';
+import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { ServerErrorMessagesComponent } from './components/server-error-messages/server-error-messages.component';
 
 @NgModule({

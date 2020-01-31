@@ -1,21 +1,24 @@
 import { OnInit } from '@angular/core';
 import { BaseResourceModel } from '../../models/base-resource.model';
+import { AlertModalService } from './../../services/alert-modal.service';
 import { BaseResourceService } from './../../services/base-resource.service';
+import { BehaviorSubject } from 'rxjs';
 
 export abstract class BaseResourceListComponent<T extends BaseResourceModel> implements OnInit {
 
   public resources: T[] = [];
+  public componentName = '';
 
-  constructor(private baseResourceService: BaseResourceService<T>) { }
+  constructor(protected baseResourceService: BaseResourceService<T>, protected alertService: AlertModalService) { }
 
   ngOnInit() {
-    this.getAllEntries();
+    this.getAllResources();
   }
 
-  getAllEntries() {
+  getAllResources() {
     this.baseResourceService.getAll().subscribe(
       resources => this.resources = resources.sort((a, b) => b.id - a.id),
-      () => alert('Erro ao carregar a lista de lançamentos.')
+      () => this.alertService.showAlertDanger(`Erro ao carregar a lista de ${this.componentName}.`)
     );
   }
 
@@ -24,10 +27,11 @@ export abstract class BaseResourceListComponent<T extends BaseResourceModel> imp
 
     if (mustDelete) {
       this.baseResourceService.delete(resource.id).subscribe(
-        () => this.getAllEntries(),
+        () => this.getAllResources(),
         () => alert('Erro ao tentar excluir o lançamento.')
       );
     }
   }
+
 
 }

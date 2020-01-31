@@ -1,3 +1,4 @@
+import { ToastrModule } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -16,6 +17,11 @@ import { InMemoryDatabase } from '../in-memory-database';
     RouterModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDatabase),
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-top-full-width',
+      preventDuplicates: true,
+    })
   ],
   declarations: [
     NavbarComponent

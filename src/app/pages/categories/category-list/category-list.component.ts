@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryService } from '../shared/category.service';
-import { Category } from '../shared/category.model';
+import { CategoryService } from '../shared/service/category.service';
+import { Category } from '../shared/model/category.model';
 import { BaseResourceListComponent } from 'src/app/shared/components/base-resource-list/base-resource-list.component';
+import { AlertModalService } from 'src/app/shared/services/alert-modal.service';
 
 @Component({
   selector: 'app-category-list',
@@ -10,8 +11,9 @@ import { BaseResourceListComponent } from 'src/app/shared/components/base-resour
 })
 export class CategoryListComponent extends BaseResourceListComponent<Category> {
 
-  constructor(protected categoryService: CategoryService) {
-    super(categoryService);
+  constructor(protected categoryService: CategoryService, protected alertService: AlertModalService) {
+    super(categoryService, alertService);
+    this.componentName = 'Categorias';
   }
 
 }

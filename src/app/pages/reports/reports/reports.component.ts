@@ -1,8 +1,8 @@
-import { EntryService } from './../../entries/shared/entry.service';
+import { EntryService } from '../../entries/shared/service/entry.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Category } from '../../categories/shared/category.model';
-import { Entry } from './../../entries/shared/entry.model';
-import { CategoryService } from '../../categories/shared/category.service';
+import { Category } from '../../categories/shared/model/category.model';
+import { Entry } from '../../entries/shared/model/entry.model';
+import { CategoryService } from '../../categories/shared/service/category.service';
 import toastr from 'toastr';
 import { BaseToastr } from 'src/app/shared/models/base-toastr.model';
 import currencyFormatter from 'currency-formatter';

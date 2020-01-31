@@ -6,6 +6,8 @@ import toastr from 'toastr';
 import { BaseResourceModel } from '../../models/base-resource.model';
 import { BaseResourceService } from '../../services/base-resource.service';
 import { BaseToastr } from '../../models/base-toastr.model';
+import { Messages } from '../../enums/messages.enum';
+import { AlertModalService } from '../../services/alert-modal.service';
 
 export abstract class BaseResourceFormComponent<T extends BaseResourceModel> implements OnInit, AfterContentChecked {
 
@@ -22,7 +24,8 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
   constructor(protected injector: Injector,
     public resource: T,
     protected baseResourceService: BaseResourceService<T>,
-    protected jsonDataToResourceFn: (jsonData) => T) {
+    protected jsonDataToResourceFn: (jsonData) => T,
+    protected alertService: AlertModalService) {
     this.route = this.injector.get(ActivatedRoute);
     this.router = this.injector.get(Router);
     this.formBuilder = this.injector.get(FormBuilder);
@@ -82,7 +85,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
         (resource) => {
           this.resource = resource;
           this.resourceForm.patchValue(resource);
-        }, () => toastr.error('Ocorreu um erro no servidor, tente mais tarde.')
+        }, () => this.alertService.showAlertDanger(Messages.FALHA_SERVIDOR)
       );
     }
   }
@@ -104,8 +107,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
   }
 
   protected actionsForSuccess(resource: T) {
-    BaseToastr.configuration();
-    toastr.success('Solicitação processada com sucesso!');
+    this.alertService.showAlertSuccess(Messages.OPERACAO_SUCESSO);
     const baseComponentPath = this.route.snapshot.parent.url[0].path;
 
     this.router.navigateByUrl(baseComponentPath, { skipLocationChange: true }).then(
@@ -114,15 +116,13 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
   }
 
   protected actionsForError(error) {
-    BaseToastr.configuration();
-    toastr.error('Ocorreu um erro ao processar a sua solicitação!');
-
+    this.alertService.showAlertDanger(Messages.OPERACAO_ERRO);
     this.submittingForm = false;
 
     if (error.status === 422) {
       this.serverErrorMessages = JSON.parse(error._body).errors;
     } else {
-      this.serverErrorMessages = ['Falha na comunicação com o servidor. Por favor, tente mais tarde.'];
+      this.serverErrorMessages = [Messages.FALHA_SERVIDOR];
     }
   }
 

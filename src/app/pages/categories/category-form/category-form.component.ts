@@ -1,8 +1,9 @@
 import { Component, Injector } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { BaseResourceFormComponent } from 'src/app/shared/components/base-resource-form/base-resource-form.component';
-import { Category } from '../shared/category.model';
-import { CategoryService } from './../shared/category.service';
+import { Category } from '../shared/model/category.model';
+import { CategoryService } from '../shared/service/category.service';
+import { AlertModalService } from 'src/app/shared/services/alert-modal.service';
 
 @Component({
   selector: 'app-category-form',
@@ -14,8 +15,9 @@ export class CategoryFormComponent extends BaseResourceFormComponent<Category> {
   public category: Category = new Category();
 
   constructor(protected categoryService: CategoryService,
-              protected injector: Injector) {
-    super(injector, new Category(), categoryService, Category.fromJson);
+              protected injector: Injector,
+              protected alertService: AlertModalService) {
+    super(injector, new Category(), categoryService, Category.fromJson, alertService);
   }
 
   protected buildResourceForm(): void {

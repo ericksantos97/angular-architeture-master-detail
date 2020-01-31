@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { EntryService } from '../shared/entry.service';
-import { Entry } from '../shared/entry.model';
+import { Component } from '@angular/core';
 import { BaseResourceListComponent } from 'src/app/shared/components/base-resource-list/base-resource-list.component';
+import { Entry } from '../shared/model/entry.model';
+import { EntryService } from '../shared/service/entry.service';
+import { AlertModalService } from 'src/app/shared/services/alert-modal.service';
 
 @Component({
   selector: 'app-entry-list',
@@ -10,10 +11,11 @@ import { BaseResourceListComponent } from 'src/app/shared/components/base-resour
 })
 export class EntryListComponent extends BaseResourceListComponent<Entry> {
 
-  public types = { revenue: 'revenue',  expense: 'expense' };
+  public types = { revenue: 'revenue', expense: 'expense' };
 
-  constructor(protected entryService: EntryService) {
-    super(entryService);
+  constructor(protected entryService: EntryService, protected alertService: AlertModalService) {
+    super(entryService, alertService);
+    this.componentName = 'Lançamentos';
   }
 
 }

@@ -28,9 +28,12 @@
     "currency-formatter": "^1.5.5",
     "jquery": "^3.4.1",
     "moment": "^2.24.0",
+    "ng-pick-datetime": "^6.0.16",
+    "ngx-bootstrap": "3.1.1",
+    "ngx-toastr": "^10.1.0",
     "primeicons": "^2.0.0",
     "primeng": "^8.0.3",
-    "rxjs": "^6.0.0",
+    "rxjs": "^6.2.2",
     "toastr": "^2.1.4",
     "zone.js": "^0.8.26"
   },
