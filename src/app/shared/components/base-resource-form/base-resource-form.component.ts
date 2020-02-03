@@ -20,10 +20,10 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
   protected formBuilder: FormBuilder;
 
   constructor(protected injector: Injector,
-    public resource: T,
-    protected baseResourceService: BaseResourceService<T>,
-    protected jsonDataToResourceFn: (jsonData) => T,
-    protected alertService: AlertModalService) {
+              public resource: T,
+              protected baseResourceService: BaseResourceService<T>,
+              protected jsonDataToResourceFn: (jsonData) => T,
+              protected alertService: AlertModalService) {
     this.route = this.injector.get(ActivatedRoute);
     this.router = this.injector.get(Router);
     this.formBuilder = this.injector.get(FormBuilder);
@@ -77,7 +77,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
 
   protected loadResource() {
     if (this.currentAction === 'edit') {
-      const routeResource = this.route.snapshot.data['category'];
+      const routeResource = this.route.snapshot.data['resource'];
       if (routeResource) {
         this.resource = routeResource;
         this.resourceForm.patchValue(this.resource);

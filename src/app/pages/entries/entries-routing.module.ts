@@ -1,7 +1,8 @@
-import { EntryListComponent } from './entry-list/entry-list.component';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { EntryFormComponent } from './entry-form/entry-form.component';
+import { EntryListComponent } from './entry-list/entry-list.component';
+import { EntryResolver } from './shared/resolvers/entry-resolver.guard';
 
 const routes: Routes = [
   {
@@ -14,7 +15,10 @@ const routes: Routes = [
   },
   {
     path: ':id/edit',
-    component: EntryFormComponent
+    component: EntryFormComponent,
+    resolve: {
+      resource: EntryResolver
+    }
   }
 ];
 

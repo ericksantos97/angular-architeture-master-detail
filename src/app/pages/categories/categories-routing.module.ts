@@ -17,7 +17,7 @@ const routes: Routes = [
     path: ':id/edit',
     component: CategoryFormComponent,
     resolve: {
-      category: CategoryResolver
+      resource: CategoryResolver
     }
   }
 ];

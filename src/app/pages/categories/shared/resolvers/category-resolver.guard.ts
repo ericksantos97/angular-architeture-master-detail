@@ -12,9 +12,9 @@ export class CategoryResolver implements Resolve<Category> {
   constructor(private categoryService: CategoryService) { }
 
   resolve(route: ActivatedRouteSnapshot): Observable<Category> | Promise<Category> | Category {
-    // if (route.params && route.params['id']) {
-    //   return this.categoryService.getById(route.params['id']);
-    // }
+    if (route.params && route.params['id']) {
+      return this.categoryService.getById(route.params['id']);
+    }
 
     return null;
   }
