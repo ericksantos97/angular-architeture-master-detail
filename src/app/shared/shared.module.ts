@@ -14,15 +14,13 @@ import { ModalModule } from 'ngx-bootstrap';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule,
-    // ModalModule.forRoot()
+    RouterModule
   ],
   declarations: [
     BreadCrumbComponent,
     PageHeaderComponent,
     FormFieldErrorComponent,
-    ServerErrorMessagesComponent,
-    // ConfirmModalComponent
+    ServerErrorMessagesComponent
   ],
   exports: [
     CommonModule,
@@ -31,11 +29,7 @@ import { ModalModule } from 'ngx-bootstrap';
     BreadCrumbComponent,
     PageHeaderComponent,
     FormFieldErrorComponent,
-    ServerErrorMessagesComponent,
-    // ConfirmModalComponent
-  ],
-  entryComponents: [
-    // ConfirmModalComponent
+    ServerErrorMessagesComponent
   ]
 })
 export class SharedModule { }

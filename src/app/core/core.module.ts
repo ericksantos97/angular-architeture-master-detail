@@ -23,6 +23,8 @@ import { ConfirmModalComponent } from '../shared/components/confirm-modal/confir
       timeOut: 5000,
       positionClass: 'toast-top-full-width',
       preventDuplicates: true,
+      progressBar: true,
+      progressAnimation: 'increasing'
     }),
     ModalModule.forRoot()
   ],

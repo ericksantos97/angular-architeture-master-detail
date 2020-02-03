@@ -1,4 +1,4 @@
-import { AfterContentChecked, Injector, OnInit } from '@angular/core';
+import { AfterContentChecked, Injector, OnInit, ChangeDetectorRef, OnChanges, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
@@ -75,18 +75,34 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
     }
   }
 
-  protected loadResource(): void {
+  protected loadResource() {
     if (this.currentAction === 'edit') {
-      this.route.paramMap.pipe(
-        switchMap(params => this.baseResourceService.getById(+params.get('id')))
-      ).subscribe(
-        (resource) => {
-          this.resource = resource;
-          this.resourceForm.patchValue(resource);
-        }, () => this.alertService.showAlertDanger(Messages.FALHA_SERVIDOR)
-      );
+      const routeResource = this.route.snapshot.data['category'];
+      if (routeResource) {
+        this.resource = routeResource;
+        this.resourceForm.patchValue(this.resource);
+      } else {
+        setTimeout(() => {
+          this.alertService.showAlertDanger(Messages.FALHA_SERVIDOR);
+          this.resourceForm.disable();
+        }, 100);
+      }
     }
   }
+
+  // Implementação para utilizar, sem Resolver nas rotas.
+  // protected loadResource(): void {
+  //   if (this.currentAction === 'edit') {
+  //     this.route.paramMap.pipe(
+  //       switchMap(params => this.baseResourceService.getById(+params.get('id')))
+  //     ).subscribe(
+  //       (resource) => {
+  //         this.resource = resource;
+  //         this.resourceForm.patchValue(resource);
+  //       }, () => this.alertService.showAlertDanger(Messages.FALHA_SERVIDOR)
+  //     );
+  //   }
+  // }
 
   protected setPageTitle(): void {
     if (this.currentAction === 'new') {
