@@ -2,12 +2,10 @@ import { AfterContentChecked, Injector, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
-import toastr from 'toastr';
+import Messages from '../../enums/messages.enum';
 import { BaseResourceModel } from '../../models/base-resource.model';
-import { BaseResourceService } from '../../services/base-resource.service';
-import { BaseToastr } from '../../models/base-toastr.model';
-import { Messages } from '../../enums/messages.enum';
 import { AlertModalService } from '../../services/alert-modal.service';
+import { BaseResourceService } from '../../services/base-resource.service';
 
 export abstract class BaseResourceFormComponent<T extends BaseResourceModel> implements OnInit, AfterContentChecked {
 
@@ -31,17 +29,17 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
     this.formBuilder = this.injector.get(FormBuilder);
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.setCurrentAction();
     this.buildResourceForm();
     this.loadResource();
   }
 
-  ngAfterContentChecked(): void {
+  public ngAfterContentChecked(): void {
     this.setPageTitle();
   }
 
-  submitForm() {
+  public submitForm() {
     this.submittingForm = true;
 
     if (this.currentAction === 'new') {

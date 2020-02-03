@@ -1,25 +1,28 @@
 import { CommonModule } from '@angular/common';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler/src/core';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BreadCrumbComponent } from './components/bread-crumb/bread-crumb.component';
+import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { FormFieldErrorComponent } from './components/form-field-error/form-field-error.component';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { ServerErrorMessagesComponent } from './components/server-error-messages/server-error-messages.component';
+import { ModalModule } from 'ngx-bootstrap';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    // ModalModule.forRoot()
   ],
   declarations: [
     BreadCrumbComponent,
     PageHeaderComponent,
     FormFieldErrorComponent,
-    ServerErrorMessagesComponent
+    ServerErrorMessagesComponent,
+    // ConfirmModalComponent
   ],
   exports: [
     CommonModule,
@@ -28,7 +31,11 @@ import { ServerErrorMessagesComponent } from './components/server-error-messages
     BreadCrumbComponent,
     PageHeaderComponent,
     FormFieldErrorComponent,
-    ServerErrorMessagesComponent
+    ServerErrorMessagesComponent,
+    // ConfirmModalComponent
+  ],
+  entryComponents: [
+    // ConfirmModalComponent
   ]
 })
 export class SharedModule { }

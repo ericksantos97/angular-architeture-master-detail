@@ -46,7 +46,7 @@ export class EntryFormComponent extends BaseResourceFormComponent<Entry> impleme
     super(injector, new Entry(), entryService, Entry.fromJson, alertService);
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.loadCategories();
     super.ngOnInit();
   }

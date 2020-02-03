@@ -14,14 +14,14 @@ import currencyFormatter from 'currency-formatter';
 })
 export class ReportsComponent implements OnInit {
 
-  expenseTotal: any = 0;
-  revenueTotal: any = 0;
-  balance: any = 0;
+  public expenseTotal: any = 0;
+  public revenueTotal: any = 0;
+  public balance: any = 0;
 
-  expenseChartData: any;
-  revenueChartData: any;
+  public expenseChartData: any;
+  public revenueChartData: any;
 
-  chartOptions = {
+  public chartOptions = {
     scales: {
       yAxes: [{
         ticks: {
@@ -31,20 +31,20 @@ export class ReportsComponent implements OnInit {
     }
   };
 
-  categories: Category[] = [];
-  entries: Entry[] = [];
+  public categories: Category[] = [];
+  public entries: Entry[] = [];
 
   @ViewChild('month') month: ElementRef = null;
   @ViewChild('year') year: ElementRef = null;
 
   constructor(private entryService: EntryService,
-    private categoryService: CategoryService) { }
+              private categoryService: CategoryService) { }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.categoryService.getAll().subscribe(categories => this.categories = categories);
   }
 
-  generateReports() {
+  public generateReports() {
     const month = this.month.nativeElement.value;
     const year = this.year.nativeElement.value;
 
